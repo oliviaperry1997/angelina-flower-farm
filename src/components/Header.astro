@@ -1,0 +1,74 @@
+---
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+  <nav class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo/Brand -->
+      <a href="/" class="text-2xl font-bold text-gray-900 hover:text-green-600 transition-colors">
+        Angelina Flower Farm
+      </a>
+
+      <!-- Navigation Links -->
+      <ul class="hidden md:flex items-center gap-8">
+        <li>
+          <a href="#shop" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+            Shop
+          </a>
+        </li>
+        <li>
+          <a href="#about" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+            About
+          </a>
+        </li>
+        <li>
+          <a href="#contact" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+            Contact
+          </a>
+        </li>
+      </ul>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        id="mobile-menu-button"
+        class="md:hidden p-2 text-gray-700 hover:text-green-600 transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+      <ul class="flex flex-col gap-4">
+        <li>
+          <a href="#shop" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+            Shop
+          </a>
+        </li>
+        <li>
+          <a href="#about" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+            About
+          </a>
+        </li>
+        <li>
+          <a href="#contact" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+            Contact
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  
+  button?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

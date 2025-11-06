@@ -1,61 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
 ---
 
 <Layout title="Welcome to Angelina Flower Farm">
-  <main class="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-    <div class="container mx-auto px-4 py-16">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-5xl font-bold text-gray-900 mb-6">
-          Welcome to <span class="text-green-600">Angelina Flower Farm</span>
-        </h1>
-        <p class="text-xl text-gray-700 mb-8">
-          Your Astro project with Tailwind CSS is successfully set up!
-        </p>
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-            Getting Started
-          </h2>
-          <ul class="text-left space-y-3">
-            <li class="flex items-start">
-              <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span class="text-gray-700">Astro is installed and configured</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span class="text-gray-700">Tailwind CSS is integrated and working</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              <span class="text-gray-700">TypeScript support is enabled</span>
-            </li>
-          </ul>
-        </div>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="https://docs.astro.build"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-          >
-            Astro Documentation
-          </a>
-          <a
-            href="https://tailwindcss.com/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-          >
-            Tailwind Documentation
-          </a>
-        </div>
-      </div>
-    </div>
-  </main>
+  <Header />
+  <Hero />
 </Layout>
