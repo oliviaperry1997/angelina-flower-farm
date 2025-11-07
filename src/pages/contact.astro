@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Background from '../components/Background.astro';
+---
+
+<Layout title="Contact – Angelina's Flower Farm">
+  <Background />
+  <Header />
+  <main class="container mx-auto px-4 py-24 max-w-4xl">
+    <h1 data-i18n="contactTitle" class="text-4xl md:text-5xl font-bold text-white drop-shadow-2xl mb-4">Get in Touch</h1>
+    <p data-i18n="contactSubtitle" class="text-white/90 mb-12 text-lg drop-shadow">Have questions or want to place a custom order? We'd love to hear from you!</p>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Contact Form -->
+      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8">
+        <h2 data-i18n="sendMessage" class="text-2xl font-semibold text-gray-900 mb-6">Send us a Message</h2>
+        <form class="space-y-4">
+          <div>
+            <label for="name" data-i18n="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              placeholder="Your name"
+            />
+          </div>
+          <div>
+            <label for="email" data-i18n="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              placeholder="you@example.com"
+            />
+          </div>
+          <div>
+            <label for="phone" data-i18n="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone (optional)</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              placeholder="(555) 123-4567"
+            />
+          </div>
+          <div>
+            <label for="message" data-i18n="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              data-i18n-placeholder="messagePlaceholder"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              placeholder="Tell us about your flower needs..."
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            data-i18n="sendBtn"
+            class="w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="space-y-6">
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8">
+          <h2 data-i18n="farmLocation" class="text-2xl font-semibold text-gray-900 mb-4">Farm Location</h2>
+          <div class="space-y-3 text-gray-700">
+            <p>
+              <strong data-i18n="address">Address:</strong><br />
+              123 Flower Lane<br />
+              Bloomington, CA 95000
+            </p>
+            <p>
+              <strong>Phone:</strong><br />
+              (555) 123-4567
+            </p>
+            <p>
+              <strong>Email:</strong><br />
+              hello@angelinasflowerfarm.com
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8">
+          <h2 data-i18n="hours" class="text-2xl font-semibold text-gray-900 mb-4">Hours</h2>
+          <div class="space-y-2 text-gray-700">
+            <p><strong data-i18n="farmStand">Farm Stand:</strong></p>
+            <p>Friday - Sunday: 9am - 5pm</p>
+            <p class="pt-3"><strong data-i18n="byAppt">By Appointment:</strong></p>
+            <p>Monday - Thursday</p>
+            <p data-i18n="hoursNote" class="pt-3 text-sm text-gray-600">
+              * Hours may vary seasonally. Follow us on social media for updates!
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8">
+          <h2 data-i18n="findOnline" class="text-2xl font-semibold text-gray-900 mb-4">Find Us Online</h2>
+          <div class="flex gap-4">
+            <a href="#" class="text-green-600 hover:text-green-700 font-semibold">Instagram</a>
+            <a href="#" class="text-green-600 hover:text-green-700 font-semibold">Facebook</a>
+            <a href="#" class="text-green-600 hover:text-green-700 font-semibold">Pinterest</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { translations, getCurrentLanguage, type Lang } from '../utils/translations';
+
+  function updateContactTranslations(lang: Lang) {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key && key in translations[lang]) {
+        el.textContent = translations[lang][key as keyof typeof translations.en];
+      }
+    });
+
+    // Update placeholder
+    const messageInput = document.querySelector('[data-i18n-placeholder="messagePlaceholder"]') as HTMLTextAreaElement;
+    if (messageInput) {
+      messageInput.placeholder = translations[lang].messagePlaceholder;
+    }
+  }
+
+  // Initialize with current language
+  updateContactTranslations(getCurrentLanguage());
+
+  // Listen for language changes
+  window.addEventListener('languageChanged', ((e: CustomEvent) => {
+    updateContactTranslations(e.detail.lang);
+  }) as EventListener);
+</script>

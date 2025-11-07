@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Background from '../components/Background.astro';
+---
+
+<Layout title="About – Angelina's Flower Farm">
+  <Background />
+  <Header />
+  <main class="container mx-auto px-4 py-24 max-w-4xl">
+    <h1 data-i18n="aboutTitle" class="text-4xl md:text-5xl font-bold text-white drop-shadow-2xl mb-4">Our Story</h1>
+    <p data-i18n="aboutSubtitle" class="text-white/90 mb-12 text-lg drop-shadow">Family-owned and operated since 2020, we're passionate about growing beautiful blooms for our community.</p>
+
+    <div class="space-y-8">
+      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8">
+        <h2 data-i18n="whoWeAre" class="text-2xl font-semibold text-gray-900 mb-4">Who We Are</h2>
+        <p data-i18n="whoWeAreP1" class="text-gray-700 leading-relaxed mb-4">
+          Angelina's Flower Farm began as a dream to bring fresh, locally-grown flowers to our community. What started as a small backyard garden has blossomed into a thriving farm where we grow over 50 varieties of seasonal blooms.
+        </p>
+        <p data-i18n="whoWeAreP2" class="text-gray-700 leading-relaxed">
+          We believe in sustainable growing practices, supporting local pollinators, and creating beautiful arrangements that bring joy to everyday moments and special celebrations alike.
+        </p>
+      </div>
+
+      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8">
+        <h2 data-i18n="ourPhilosophy" class="text-2xl font-semibold text-gray-900 mb-4">Our Philosophy</h2>
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start">
+            <span class="text-green-600 font-bold mr-3">✓</span>
+            <span><strong data-i18n="sustainable">Sustainable Growing:</strong> <span data-i18n="sustainableDesc">We use organic practices and prioritize soil health and biodiversity.</span></span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-green-600 font-bold mr-3">✓</span>
+            <span><strong data-i18n="seasonal">Seasonal & Local:</strong> <span data-i18n="seasonalDesc">All our flowers are grown right here on our farm, picked fresh daily.</span></span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-green-600 font-bold mr-3">✓</span>
+            <span><strong data-i18n="community">Community First:</strong> <span data-i18n="communityDesc">We're committed to serving our neighbors with quality and care.</span></span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-green-600 font-bold mr-3">✓</span>
+            <span><strong data-i18n="beauty">Beauty & Joy:</strong> <span data-i18n="beautyDesc">Every bouquet is crafted to bring happiness and brighten your day.</span></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8">
+        <h2 data-i18n="meetTheTeam" class="text-2xl font-semibold text-gray-900 mb-4">Meet the Team</h2>
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900">Angelina</h3>
+            <p data-i18n="founderTitle" class="text-sm text-green-700 mb-2">Founder & Head Grower</p>
+            <p data-i18n="founderDesc" class="text-gray-700">With a background in horticulture and a lifelong love of flowers, Angelina founded the farm to share her passion with the community.</p>
+          </div>
+          <div>
+            <h3 data-i18n="growingTeam" class="text-xl font-semibold text-gray-900">The Growing Team</h3>
+            <p data-i18n="growingTeamDesc" class="text-gray-700">Our dedicated team of growers and florists work year-round to ensure every bloom meets our high standards of quality and beauty.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8 text-center">
+        <h2 data-i18n="visitUs" class="text-2xl font-semibold text-gray-900 mb-3">Visit Us</h2>
+        <p data-i18n="visitUsDesc" class="text-gray-700 mb-6">We'd love to show you around the farm! Contact us to schedule a tour or stop by during our market hours.</p>
+        <a href="/contact" data-i18n="getInTouch" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { translations, getCurrentLanguage, type Lang } from '../utils/translations';
+
+  function updateAboutTranslations(lang: Lang) {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key && key in translations[lang]) {
+        el.textContent = translations[lang][key as keyof typeof translations.en];
+      }
+    });
+  }
+
+  // Initialize with current language
+  updateAboutTranslations(getCurrentLanguage());
+
+  // Listen for language changes
+  window.addEventListener('languageChanged', ((e: CustomEvent) => {
+    updateAboutTranslations(e.detail.lang);
+  }) as EventListener);
+</script>

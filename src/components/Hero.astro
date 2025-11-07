@@ -9,25 +9,27 @@ import Background from './Background.astro';
   <div class="relative z-10 container mx-auto px-4 py-20">
     <div class="max-w-4xl mx-auto text-center">
       <!-- Main Heading -->
-      <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 drop-shadow-2xl">
+      <h1 data-i18n="heroTitle" class="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 drop-shadow-2xl">
         Angelina's Flower Farm
       </h1>
       
       <!-- Subheading -->
-      <p class="text-xl md:text-2xl text-white/90 mb-12 font-light tracking-wide drop-shadow-lg">
+      <p data-i18n="heroSubtitle" class="text-xl md:text-2xl text-white/90 mb-12 font-light tracking-wide drop-shadow-lg">
         Fresh blooms from our family farm to your home
       </p>
 
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href="#shop"
+          href="/shop"
+          data-i18n="shopFlowers"
           class="bg-white hover:bg-gray-100 text-gray-900 font-semibold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl"
         >
           Shop Flowers
         </a>
         <a
-          href="#about"
+          href="/about"
+          data-i18n="learnMore"
           class="bg-transparent hover:bg-white/10 text-white font-semibold py-4 px-8 rounded-full border-2 border-white transition-all duration-300 backdrop-blur-sm"
         >
           Learn More
@@ -40,19 +42,19 @@ import Background from './Background.astro';
           <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
           </svg>
-          <p class="text-sm font-medium">Fresh Daily</p>
+          <p data-i18n="freshDaily" class="text-sm font-medium">Fresh Daily</p>
         </div>
         <div class="text-center">
           <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
-          <p class="text-sm font-medium">Locally Grown</p>
+          <p data-i18n="locallyGrown" class="text-sm font-medium">Locally Grown</p>
         </div>
         <div class="text-center">
           <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
           </svg>
-          <p class="text-sm font-medium">Made with Love</p>
+          <p data-i18n="madeWithLove" class="text-sm font-medium">Made with Love</p>
         </div>
       </div>
     </div>
@@ -67,3 +69,25 @@ import Background from './Background.astro';
     </div>
   </div>
 </section>
+
+<script>
+  import { translations, getCurrentLanguage, type Lang } from '../utils/translations';
+
+  function updateHeroTranslations(lang: Lang) {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key && key in translations[lang]) {
+        el.textContent = translations[lang][key as keyof typeof translations.en];
+      }
+    });
+  }
+
+  // Initialize with current language
+  updateHeroTranslations(getCurrentLanguage());
+
+  // Listen for language changes
+  window.addEventListener('languageChanged', ((e: CustomEvent) => {
+    updateHeroTranslations(e.detail.lang);
+  }) as EventListener);
+</script>

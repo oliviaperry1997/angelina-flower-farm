@@ -16,8 +16,8 @@ posts.sort((a, b) => {
   <Background />
   <Header />
   <main class="container mx-auto px-4 py-24">
-    <h1 class="text-4xl md:text-5xl font-bold text-white drop-shadow-2xl mb-4">Farm Journal</h1>
-    <p class="text-white/90 mb-12 max-w-2xl drop-shadow">Stories from the field: seasonal blooms, growing tips, and updates from our family farm.</p>
+    <h1 data-i18n="blogTitle" class="text-4xl md:text-5xl font-bold text-white drop-shadow-2xl mb-4">Farm Journal</h1>
+    <p data-i18n="blogSubtitle" class="text-white/90 mb-12 max-w-2xl drop-shadow">Stories from the field: seasonal blooms, growing tips, and updates from our family farm.</p>
 
     <div class="grid gap-8 md:grid-cols-2">
       {posts.map((post) => (
@@ -40,7 +40,29 @@ posts.sort((a, b) => {
     </div>
 
     {posts.length === 0 && (
-      <p class="text-gray-500">No posts yet. Check back soon!</p>
+      <p data-i18n="noPosts" class="text-white/80">No posts yet. Check back soon!</p>
     )}
   </main>
 </Layout>
+
+<script>
+  import { translations, getCurrentLanguage, type Lang } from '../utils/translations';
+
+  function updateBlogTranslations(lang: Lang) {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key && key in translations[lang]) {
+        el.textContent = translations[lang][key as keyof typeof translations.en];
+      }
+    });
+  }
+
+  // Initialize with current language
+  updateBlogTranslations(getCurrentLanguage());
+
+  // Listen for language changes
+  window.addEventListener('languageChanged', ((e: CustomEvent) => {
+    updateBlogTranslations(e.detail.lang);
+  }) as EventListener);
+</script>

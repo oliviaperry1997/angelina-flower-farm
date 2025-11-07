@@ -12,59 +12,82 @@
       <!-- Navigation Links -->
       <ul class="hidden md:flex items-center gap-8">
         <li>
-          <a href="/blog" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href="/blog" data-i18n="blog" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
             Blog
           </a>
         </li>
         <li>
-          <a href="#shop" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href="/shop" data-i18n="shop" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
             Shop
           </a>
         </li>
         <li>
-          <a href="#about" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href="/about" data-i18n="about" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
             About
           </a>
         </li>
         <li>
-          <a href="#contact" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href="/contact" data-i18n="contact" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
             Contact
           </a>
         </li>
+        <li>
+          <button 
+            id="language-toggle"
+            class="flex items-center gap-2 text-gray-700 hover:text-green-600 transition-colors font-medium"
+            aria-label="Toggle language"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+            </svg>
+            <span id="current-lang">EN</span>
+          </button>
+        </li>
       </ul>
 
-      <!-- Mobile Menu Button -->
-      <button 
-        id="mobile-menu-button"
-        class="md:hidden p-2 text-gray-700 hover:text-green-600 transition-colors"
-        aria-label="Toggle menu"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
+      <!-- Mobile Menu Button & Language Toggle -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button 
+          id="language-toggle-mobile"
+          class="p-2 text-gray-700 hover:text-green-600 transition-colors"
+          aria-label="Toggle language"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+          </svg>
+        </button>
+        <button 
+          id="mobile-menu-button"
+          class="p-2 text-gray-700 hover:text-green-600 transition-colors"
+          aria-label="Toggle menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
       <ul class="flex flex-col gap-4">
         <li>
-          <a href="/blog" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href="/blog" data-i18n="blog" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
             Blog
           </a>
         </li>
         <li>
-          <a href="#shop" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href="/shop" data-i18n="shop" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
             Shop
           </a>
         </li>
         <li>
-          <a href="#about" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href="/about" data-i18n="about" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
             About
           </a>
         </li>
         <li>
-          <a href="#contact" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href="/contact" data-i18n="contact" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
             Contact
           </a>
         </li>
@@ -74,11 +97,57 @@
 </header>
 
 <script>
+  import { translations, type Lang } from '../utils/translations';
+
   // Mobile menu toggle
-  const button = document.getElementById('mobile-menu-button');
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
   
-  button?.addEventListener('click', () => {
+  mobileMenuButton?.addEventListener('click', () => {
     menu?.classList.toggle('hidden');
+  });
+
+  // Get current language from localStorage or default to 'en'
+  let currentLang: Lang = (localStorage.getItem('language') as Lang) || 'en';
+
+  // Update UI with current language
+  function updateLanguage(lang: Lang) {
+    currentLang = lang;
+    localStorage.setItem('language', lang);
+    
+    // Update language indicator
+    const langIndicator = document.getElementById('current-lang');
+    if (langIndicator) {
+      langIndicator.textContent = translations[lang].lang;
+    }
+    
+    // Update all elements with data-i18n attribute
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key && key in translations[lang]) {
+        el.textContent = translations[lang][key as keyof typeof translations.en];
+      }
+    });
+
+    // Dispatch custom event for other components to listen to
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+  }
+
+  // Initialize with saved language
+  updateLanguage(currentLang);
+
+  // Desktop language toggle
+  const langToggle = document.getElementById('language-toggle');
+  langToggle?.addEventListener('click', () => {
+    const newLang: Lang = currentLang === 'en' ? 'pt' : 'en';
+    updateLanguage(newLang);
+  });
+
+  // Mobile language toggle
+  const langToggleMobile = document.getElementById('language-toggle-mobile');
+  langToggleMobile?.addEventListener('click', () => {
+    const newLang: Lang = currentLang === 'en' ? 'pt' : 'en';
+    updateLanguage(newLang);
   });
 </script>
