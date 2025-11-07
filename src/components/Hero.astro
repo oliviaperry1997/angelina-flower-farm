@@ -1,5 +1,6 @@
 ---
 import Background from './Background.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <Background />
@@ -21,14 +22,14 @@ import Background from './Background.astro';
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href="/shop"
+          href={`${base}/shop/`}
           data-i18n="shopFlowers"
           class="bg-white hover:bg-gray-100 text-gray-900 font-semibold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl"
         >
           Shop Flowers
         </a>
         <a
-          href="/about"
+          href={`${base}/about/`}
           data-i18n="learnMore"
           class="bg-transparent hover:bg-white/10 text-white font-semibold py-4 px-8 rounded-full border-2 border-white transition-all duration-300 backdrop-blur-sm"
         >
