@@ -83,6 +83,17 @@ export const translations = {
     blogTitle: 'Farm Journal',
     blogSubtitle: 'Stories from the field: seasonal blooms, growing tips, and updates from our family farm.',
     noPosts: 'No posts yet. Check back soon!',
+    
+    // Cart
+    cartTitle: 'Your Cart',
+    emptyCart: 'Your cart is empty',
+    emptyCartDesc: 'Add some beautiful flowers to get started!',
+    continueShopping: 'Continue Shopping',
+    cartSummary: 'Cart Summary',
+    clearCart: 'Clear Cart',
+    subtotal: 'Subtotal',
+    total: 'Total',
+    checkout: 'Checkout',
   },
   pt: {
     // Navigation
@@ -167,6 +178,17 @@ export const translations = {
     blogTitle: 'Diário da Quinta',
     blogSubtitle: 'Histórias do campo: flores sazonais, dicas de cultivo e atualizações da nossa quinta familiar.',
     noPosts: 'Ainda sem publicações. Volte em breve!',
+    
+    // Cart
+    cartTitle: 'O Seu Carrinho',
+    emptyCart: 'O seu carrinho está vazio',
+    emptyCartDesc: 'Adicione algumas flores lindas para começar!',
+    continueShopping: 'Continuar Comprando',
+    cartSummary: 'Resumo do Carrinho',
+    clearCart: 'Limpar Carrinho',
+    subtotal: 'Subtotal',
+    total: 'Total',
+    checkout: 'Finalizar Compra',
   }
 } as const;
 

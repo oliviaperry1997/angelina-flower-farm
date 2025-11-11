@@ -1,0 +1,203 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Background from '../components/Background.astro';
+---
+
+<Layout title="Cart – Angelina's Flower Farm">
+  <Background />
+  <Header />
+  <main class="container mx-auto px-4 py-24">
+    <h1 data-i18n="cartTitle" class="text-4xl md:text-5xl font-bold text-white drop-shadow-2xl mb-8">Your Cart</h1>
+    
+    <!-- Empty Cart Message -->
+    <div id="empty-cart" class="hidden bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8 text-center">
+      <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+      </svg>
+      <h2 data-i18n="emptyCart" class="text-2xl font-semibold text-gray-900 mb-2">Your cart is empty</h2>
+      <p data-i18n="emptyCartDesc" class="text-gray-600 mb-6">Add some beautiful flowers to get started!</p>
+      <a href="/shop/" data-i18n="continueShopping" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition">
+        Continue Shopping
+      </a>
+    </div>
+
+    <!-- Cart Items -->
+    <div id="cart-items" class="space-y-4 mb-8">
+      <!-- Items will be populated by JavaScript -->
+    </div>
+
+    <!-- Cart Summary -->
+    <div id="cart-summary" class="hidden bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 data-i18n="cartSummary" class="text-xl font-semibold text-gray-900">Cart Summary</h3>
+        <button id="clear-cart" data-i18n="clearCart" class="text-red-600 hover:text-red-700 font-medium">
+          Clear Cart
+        </button>
+      </div>
+      
+      <div class="border-t pt-4">
+        <div class="flex justify-between items-center mb-2">
+          <span data-i18n="subtotal" class="text-gray-600">Subtotal:</span>
+          <span id="cart-subtotal" class="font-semibold">$0.00</span>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+          <span data-i18n="total" class="text-lg font-semibold text-gray-900">Total:</span>
+          <span id="cart-total" class="text-lg font-bold text-green-700">$0.00</span>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="/shop/" data-i18n="continueShopping" class="flex-1 bg-gray-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-gray-700 transition text-center">
+            Continue Shopping
+          </a>
+          <button id="checkout" data-i18n="checkout" class="flex-1 bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition">
+            Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { CartManager } from '../utils/cart';
+  import { translations, getCurrentLanguage, type Lang } from '../utils/translations';
+
+  // DOM elements
+  const emptyCartEl = document.getElementById('empty-cart');
+  const cartItemsEl = document.getElementById('cart-items');
+  const cartSummaryEl = document.getElementById('cart-summary');
+  const cartSubtotalEl = document.getElementById('cart-subtotal');
+  const cartTotalEl = document.getElementById('cart-total');
+  const clearCartBtn = document.getElementById('clear-cart');
+  const checkoutBtn = document.getElementById('checkout');
+
+  // Render cart items
+  function renderCartItems() {
+    const items = CartManager.getCart();
+    
+    if (items.length === 0) {
+      emptyCartEl?.classList.remove('hidden');
+      cartSummaryEl?.classList.add('hidden');
+      if (cartItemsEl) cartItemsEl.innerHTML = '';
+      return;
+    }
+
+    emptyCartEl?.classList.add('hidden');
+    cartSummaryEl?.classList.remove('hidden');
+
+    if (cartItemsEl) {
+      cartItemsEl.innerHTML = items.map(item => `
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-6 flex items-center justify-between">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-gray-900">${item.name}</h3>
+            <p class="text-gray-600">$${item.price.toFixed(2)} each</p>
+          </div>
+          
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <button 
+                class="quantity-btn w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center font-semibold"
+                data-action="decrease"
+                data-id="${item.id}"
+              >
+                -
+              </button>
+              <span class="w-8 text-center font-semibold">${item.quantity}</span>
+              <button 
+                class="quantity-btn w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center font-semibold"
+                data-action="increase"
+                data-id="${item.id}"
+              >
+                +
+              </button>
+            </div>
+            
+            <div class="text-right">
+              <p class="font-semibold text-lg">$${(item.price * item.quantity).toFixed(2)}</p>
+            </div>
+            
+            <button 
+              class="remove-btn text-red-600 hover:text-red-700 p-2"
+              data-id="${item.id}"
+              title="Remove item"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      // Add event listeners for quantity buttons
+      document.querySelectorAll('.quantity-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const button = e.currentTarget as HTMLElement; // Use currentTarget to get the button
+          const action = button.getAttribute('data-action');
+          const itemId = button.getAttribute('data-id');
+          
+          if (itemId) {
+            const item = items.find(i => i.id === itemId);
+            if (item) {
+              const newQuantity = action === 'increase' ? item.quantity + 1 : item.quantity - 1;
+              CartManager.updateQuantity(itemId, newQuantity);
+            }
+          }
+        });
+      });
+
+      // Add event listeners for remove buttons
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const button = e.currentTarget as HTMLElement; // Use currentTarget to get the button, not the clicked SVG
+          const itemId = button.getAttribute('data-id');
+          if (itemId) {
+            CartManager.removeItem(itemId);
+          }
+        });
+      });
+    }
+
+    // Update totals
+    const total = CartManager.getTotal();
+    if (cartSubtotalEl) cartSubtotalEl.textContent = `$${total.toFixed(2)}`;
+    if (cartTotalEl) cartTotalEl.textContent = `$${total.toFixed(2)}`;
+  }
+
+  // Translation functions
+  function updateCartTranslations(lang: Lang) {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key && key in translations[lang]) {
+        el.textContent = translations[lang][key as keyof typeof translations.en];
+      }
+    });
+  }
+
+  // Event handlers
+  clearCartBtn?.addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear your cart?')) {
+      CartManager.clearCart();
+    }
+  });
+
+  checkoutBtn?.addEventListener('click', () => {
+    alert('Checkout functionality would be implemented here!');
+  });
+
+  // Listen for cart updates
+  window.addEventListener('cartUpdated', renderCartItems);
+
+  // Listen for language changes
+  window.addEventListener('languageChanged', ((e: CustomEvent) => {
+    updateCartTranslations(e.detail.lang);
+  }) as EventListener);
+
+  // Initialize
+  renderCartItems();
+  updateCartTranslations(getCurrentLanguage());
+</script>
