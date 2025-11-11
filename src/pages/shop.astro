@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Background from '../components/Background.astro';
+
+const base = import.meta.env.BASE_URL;
+const createUrl = (path: string) => base === '/' ? `/${path}/` : `${base}/${path}/`;
 ---
 
 <Layout title="Shop – Angelina's Flower Farm">
@@ -19,7 +22,13 @@ import Background from '../components/Background.astro';
           <h2 data-i18n="seasonalBouquet" class="text-2xl font-semibold text-gray-900">Seasonal Bouquet</h2>
           <p data-i18n="seasonalBouquetDesc" class="mt-2 text-gray-600">A beautiful mix of seasonal blooms, thoughtfully arranged.</p>
           <p class="mt-4 text-2xl font-bold text-green-700">$35</p>
-          <button data-i18n="addToCart" class="mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition">
+          <button 
+            data-i18n="addToCart" 
+            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
+            data-id="seasonal-bouquet"
+            data-name-key="seasonalBouquet"
+            data-price="35"
+          >
             Add to Cart
           </button>
         </div>
@@ -32,7 +41,13 @@ import Background from '../components/Background.astro';
           <h2 data-i18n="sunflowerBundle" class="text-2xl font-semibold text-gray-900">Sunflower Bundle</h2>
           <p data-i18n="sunflowerBundleDesc" class="mt-2 text-gray-600">Bright and cheerful sunflowers to brighten any room.</p>
           <p class="mt-4 text-2xl font-bold text-green-700">$28</p>
-          <button data-i18n="addToCart" class="mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition">
+          <button 
+            data-i18n="addToCart" 
+            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
+            data-id="sunflower-bundle"
+            data-name-key="sunflowerBundle"
+            data-price="28"
+          >
             Add to Cart
           </button>
         </div>
@@ -45,7 +60,13 @@ import Background from '../components/Background.astro';
           <h2 data-i18n="roseCollection" class="text-2xl font-semibold text-gray-900">Rose Collection</h2>
           <p data-i18n="roseCollectionDesc" class="mt-2 text-gray-600">Classic roses in various colors, perfect for special moments.</p>
           <p class="mt-4 text-2xl font-bold text-green-700">$45</p>
-          <button data-i18n="addToCart" class="mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition">
+          <button 
+            data-i18n="addToCart" 
+            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
+            data-id="rose-collection"
+            data-name-key="roseCollection"
+            data-price="45"
+          >
             Add to Cart
           </button>
         </div>
@@ -58,7 +79,13 @@ import Background from '../components/Background.astro';
           <h2 data-i18n="wildflowerMix" class="text-2xl font-semibold text-gray-900">Wildflower Mix</h2>
           <p data-i18n="wildflowerMixDesc" class="mt-2 text-gray-600">A rustic blend of native wildflowers and grasses.</p>
           <p class="mt-4 text-2xl font-bold text-green-700">$32</p>
-          <button data-i18n="addToCart" class="mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition">
+          <button 
+            data-i18n="addToCart" 
+            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
+            data-id="wildflower-mix"
+            data-name-key="wildflowerMix"
+            data-price="32"
+          >
             Add to Cart
           </button>
         </div>
@@ -71,7 +98,13 @@ import Background from '../components/Background.astro';
           <h2 data-i18n="dahliaDelight" class="text-2xl font-semibold text-gray-900">Dahlia Delight</h2>
           <p data-i18n="dahliaDelightDesc" class="mt-2 text-gray-600">Stunning dahlias in vibrant colors and intricate patterns.</p>
           <p class="mt-4 text-2xl font-bold text-green-700">$40</p>
-          <button data-i18n="addToCart" class="mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition">
+          <button 
+            data-i18n="addToCart" 
+            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
+            data-id="dahlia-delight"
+            data-name-key="dahliaDelight"
+            data-price="40"
+          >
             Add to Cart
           </button>
         </div>
@@ -84,7 +117,13 @@ import Background from '../components/Background.astro';
           <h2 data-i18n="gardenGreens" class="text-2xl font-semibold text-gray-900">Garden Greens</h2>
           <p data-i18n="gardenGreensDesc" class="mt-2 text-gray-600">Lush foliage and greenery for a natural, elegant look.</p>
           <p class="mt-4 text-2xl font-bold text-green-700">$25</p>
-          <button data-i18n="addToCart" class="mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition">
+          <button 
+            data-i18n="addToCart" 
+            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
+            data-id="garden-greens"
+            data-name-key="gardenGreens"
+            data-price="25"
+          >
             Add to Cart
           </button>
         </div>
@@ -94,7 +133,7 @@ import Background from '../components/Background.astro';
     <div class="mt-12 bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8 text-center">
       <h2 data-i18n="customOrders" class="text-2xl font-semibold text-gray-900 mb-3">Custom Orders</h2>
       <p data-i18n="customOrdersDesc" class="text-gray-600 mb-6">Need something special? We create custom arrangements for weddings, events, and special occasions.</p>
-      <a href="/contact" data-i18n="contactUs" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition">
+      <a href={createUrl('contact')} data-i18n="contactUs" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition">
         Contact Us
       </a>
     </div>
@@ -103,6 +142,7 @@ import Background from '../components/Background.astro';
 
 <script>
   import { translations, getCurrentLanguage, type Lang } from '../utils/translations';
+  import { CartManager } from '../utils/cart';
 
   function updateShopTranslations(lang: Lang) {
     const elements = document.querySelectorAll('[data-i18n]');
@@ -114,8 +154,43 @@ import Background from '../components/Background.astro';
     });
   }
 
+  // Add to cart functionality
+  function setupAddToCartButtons() {
+    const buttons = document.querySelectorAll('.add-to-cart-btn');
+    
+    buttons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const id = target.getAttribute('data-id');
+        const nameKey = target.getAttribute('data-name-key'); // Use translation key instead
+        const priceStr = target.getAttribute('data-price');
+        
+        if (id && nameKey && priceStr) {
+          const price = parseFloat(priceStr);
+          const currentLang = getCurrentLanguage();
+          
+          // Get translated product name
+          const translatedName = translations[currentLang][nameKey as keyof typeof translations.en];
+          
+          CartManager.addItem(id, translatedName, price, nameKey);
+          
+          // Visual feedback
+          const originalText = target.textContent;
+          target.textContent = 'Added!';
+          target.classList.add('bg-green-700');
+          
+          setTimeout(() => {
+            target.textContent = originalText;
+            target.classList.remove('bg-green-700');
+          }, 1000);
+        }
+      });
+    });
+  }
+
   // Initialize with current language
   updateShopTranslations(getCurrentLanguage());
+  setupAddToCartButtons();
 
   // Listen for language changes
   window.addEventListener('languageChanged', ((e: CustomEvent) => {

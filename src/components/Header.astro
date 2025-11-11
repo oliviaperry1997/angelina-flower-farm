@@ -1,5 +1,6 @@
 ---
 const base = import.meta.env.BASE_URL;
+const createUrl = (path: string) => base === '/' ? `/${path}/` : `${base}/${path}/`;
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
@@ -13,22 +14,22 @@ const base = import.meta.env.BASE_URL;
       <!-- Navigation Links -->
       <ul class="hidden md:flex items-center gap-8">
         <li>
-          <a href={`${base}/blog/`} data-i18n="blog" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href={createUrl('blog')} data-i18n="blog" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
             Blog
           </a>
         </li>
         <li>
-          <a href={`${base}/shop/`} data-i18n="shop" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href={createUrl('shop')} data-i18n="shop" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
             Shop
           </a>
         </li>
         <li>
-          <a href={`${base}/about/`} data-i18n="about" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href={createUrl('about')} data-i18n="about" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
             About
           </a>
         </li>
         <li>
-          <a href={`${base}/contact/`} data-i18n="contact" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href={createUrl('contact')} data-i18n="contact" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
             Contact
           </a>
         </li>
@@ -44,10 +45,36 @@ const base = import.meta.env.BASE_URL;
             <span id="current-lang">EN</span>
           </button>
         </li>
+        <!-- Cart Icon (only visible on shop page) -->
+        <li id="cart-nav-item" class="hidden">
+          <a 
+            href={createUrl('cart')}
+            id="cart-link"
+            class="relative flex items-center gap-2 text-gray-700 hover:text-green-600 transition-colors font-medium"
+            aria-label="View cart"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+            </svg>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+          </a>
+        </li>
       </ul>
 
       <!-- Mobile Menu Button & Language Toggle -->
       <div class="flex items-center gap-2 md:hidden">
+        <!-- Mobile Cart Icon (only visible on shop page) -->
+        <a 
+          href={createUrl('cart')}
+          id="cart-link-mobile"
+          class="hidden relative p-2 text-gray-700 hover:text-green-600 transition-colors"
+          aria-label="View cart"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+          </svg>
+          <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+        </a>
         <button 
           id="language-toggle-mobile"
           class="p-2 text-gray-700 hover:text-green-600 transition-colors"
@@ -73,22 +100,22 @@ const base = import.meta.env.BASE_URL;
     <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
       <ul class="flex flex-col gap-4">
         <li>
-          <a href={`${base}/blog/`} data-i18n="blog" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href={createUrl('blog')} data-i18n="blog" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
             Blog
           </a>
         </li>
         <li>
-          <a href={`${base}/shop/`} data-i18n="shop" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href={createUrl('shop')} data-i18n="shop" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
             Shop
           </a>
         </li>
         <li>
-          <a href={`${base}/about/`} data-i18n="about" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href={createUrl('about')} data-i18n="about" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
             About
           </a>
         </li>
         <li>
-          <a href={`${base}/contact/`} data-i18n="contact" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
+          <a href={createUrl('contact')} data-i18n="contact" class="block text-gray-700 hover:text-green-600 transition-colors font-medium">
             Contact
           </a>
         </li>
@@ -131,6 +158,9 @@ const base = import.meta.env.BASE_URL;
       }
     });
 
+    // Update cart item names with new language
+    CartManager.updateItemNames(translations, lang);
+
     // Dispatch custom event for other components to listen to
     window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
   }
@@ -151,4 +181,39 @@ const base = import.meta.env.BASE_URL;
     const newLang: Lang = currentLang === 'en' ? 'pt' : 'en';
     updateLanguage(newLang);
   });
+
+  // Cart functionality
+  import { CartManager } from '../utils/cart';
+
+  // Show cart icon on all pages
+  function updateCartVisibility() {
+    const cartNavItem = document.getElementById('cart-nav-item');
+    const cartLinkMobile = document.getElementById('cart-link-mobile');
+    
+    // Always show cart icon
+    cartNavItem?.classList.remove('hidden');
+    cartLinkMobile?.classList.remove('hidden');
+  }
+
+  // Update cart count display
+  function updateCartCount() {
+    const count = CartManager.getItemCount();
+    const cartCountDesktop = document.getElementById('cart-count');
+    const cartCountMobile = document.getElementById('cart-count-mobile');
+    
+    if (cartCountDesktop) cartCountDesktop.textContent = count.toString();
+    if (cartCountMobile) cartCountMobile.textContent = count.toString();
+  }
+
+  // Initialize cart
+  updateCartVisibility();
+  updateCartCount();
+
+  // Listen for cart updates
+  window.addEventListener('cartUpdated', () => {
+    updateCartCount();
+  });
+
+  // Update cart visibility on navigation (for SPAs)
+  window.addEventListener('popstate', updateCartVisibility);
 </script>
