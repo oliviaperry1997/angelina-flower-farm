@@ -4,6 +4,11 @@ import Header from '../components/Header.astro';
 import { getCurrentLanguage, t } from '../utils/translations';
 
 const currentLanguage = getCurrentLanguage();
+
+// Base path helper for GitHub Pages deployment
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const createUrl = (path: string) => base === '/' ? `/${path}/` : `${base}/${path}/`;
+const createAssetUrl = (path: string) => base === '/' ? path : `${base}${path}`;
 ---
 
 <Layout title={`${t('checkoutTitle')} – Angelina's Flower Farm`}>
@@ -11,7 +16,7 @@ const currentLanguage = getCurrentLanguage();
   
   <!-- Fixed Background Image with Overlay -->
   <div class="fixed inset-0 -z-10">
-    <img src="/flower-background.jpg" alt="Flower farm field" class="w-full h-full object-cover">
+    <img src={createAssetUrl('/flower-background.jpg')} alt="Flower farm field" class="w-full h-full object-cover">
     <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50"></div>
   </div>
 
@@ -222,7 +227,7 @@ const currentLanguage = getCurrentLanguage();
                 </button>
                 
                 <a 
-                  href="/cart/" 
+                  href={createUrl('cart')}
                   class="block w-full text-center border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
                   data-i18n="backToCart"
                 >
@@ -255,7 +260,9 @@ const currentLanguage = getCurrentLanguage();
         
         // Redirect to cart if empty
         if (CartManager.getItemCount() === 0) {
-          window.location.href = '/cart/';
+          const base = document.querySelector('meta[name="astro-base"]')?.getAttribute('content') || '';
+          const createUrl = (path: string) => base === '/' ? `/${path}/` : `${base}/${path}/`;
+          window.location.href = createUrl('cart');
           return;
         }
       }
@@ -382,7 +389,8 @@ const currentLanguage = getCurrentLanguage();
           
           // Redirect to home after 5 seconds
           setTimeout(() => {
-            window.location.href = '/';
+            const base = document.querySelector('meta[name="astro-base"]')?.getAttribute('content') || '';
+            window.location.href = base === '/' ? '/' : base;
           }, 5000);
         }, 2000);
       }
