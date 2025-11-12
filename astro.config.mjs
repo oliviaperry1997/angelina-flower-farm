@@ -4,6 +4,6 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://oliviaperry1997.github.io',
-  base: '/angelina-flower-farm',
+  base: process.env.NODE_ENV === 'production' ? '/angelina-flower-farm' : undefined,
   integrations: [tailwind()],
 });
