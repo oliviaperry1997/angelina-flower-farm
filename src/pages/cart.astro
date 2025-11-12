@@ -2,6 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Background from '../components/Background.astro';
+
+// Base path helper for GitHub Pages deployment
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const createUrl = (path: string) => base === '/' ? `/${path}/` : `${base}/${path}/`;
 ---
 
 <Layout title="Cart – Angelina's Flower Farm">
@@ -17,7 +21,7 @@ import Background from '../components/Background.astro';
       </svg>
       <h2 data-i18n="emptyCart" class="text-2xl font-semibold text-gray-900 mb-2">Your cart is empty</h2>
       <p data-i18n="emptyCartDesc" class="text-gray-600 mb-6">Add some beautiful flowers to get started!</p>
-      <a href="/shop/" data-i18n="continueShopping" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition">
+      <a href={createUrl('shop')} data-i18n="continueShopping" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition">
         Continue Shopping
       </a>
     </div>
@@ -47,10 +51,10 @@ import Background from '../components/Background.astro';
         </div>
         
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="/shop/" data-i18n="continueShopping" class="flex-1 bg-gray-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-gray-700 transition text-center">
+          <a href={createUrl('shop')} data-i18n="continueShopping" class="flex-1 bg-gray-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-gray-700 transition text-center">
             Continue Shopping
           </a>
-          <a href="/checkout/" data-i18n="checkout" class="flex-1 bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition text-center">
+          <a href={createUrl('checkout')} data-i18n="checkout" class="flex-1 bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition text-center">
             Checkout
           </a>
         </div>
