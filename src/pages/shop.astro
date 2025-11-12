@@ -2,139 +2,41 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Background from '../components/Background.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products } from '../data/products';
+import { getCurrentLanguage, t } from '../utils/translations';
 
 const base = import.meta.env.BASE_URL;
 const createUrl = (path: string) => base === '/' ? `/${path}/` : `${base}/${path}/`;
+const currentLanguage = getCurrentLanguage();
 ---
 
 <Layout title="Shop – Angelina's Flower Farm">
   <Background />
   <Header />
   <main class="container mx-auto px-4 py-24">
-    <h1 data-i18n="shopTitle" class="text-4xl md:text-5xl font-bold text-white drop-shadow-2xl mb-4">Shop Our Blooms</h1>
-    <p data-i18n="shopSubtitle" class="text-white/90 mb-12 max-w-2xl drop-shadow">Fresh, locally grown flowers perfect for any occasion. All bouquets are handpicked and arranged with care.</p>
+    <h1 data-i18n="shopTitle" class="text-4xl md:text-5xl font-bold text-white drop-shadow-2xl mb-4">
+      {t('shopTitle', currentLanguage)}
+    </h1>
+    <p data-i18n="shopSubtitle" class="text-white/90 mb-12 max-w-2xl drop-shadow">
+      {t('shopSubtitle', currentLanguage)}
+    </p>
 
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      <!-- Product Card 1 -->
-      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm overflow-hidden">
-        <div class="h-48 bg-gradient-to-br from-pink-200 to-purple-200"></div>
-        <div class="p-6">
-          <h2 data-i18n="seasonalBouquet" class="text-2xl font-semibold text-gray-900">Seasonal Bouquet</h2>
-          <p data-i18n="seasonalBouquetDesc" class="mt-2 text-gray-600">A beautiful mix of seasonal blooms, thoughtfully arranged.</p>
-          <p class="mt-4 text-2xl font-bold text-green-700">$35</p>
-          <button 
-            data-i18n="addToCart" 
-            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
-            data-id="seasonal-bouquet"
-            data-name-key="seasonalBouquet"
-            data-price="35"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
-
-      <!-- Product Card 2 -->
-      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm overflow-hidden">
-        <div class="h-48 bg-gradient-to-br from-yellow-200 to-orange-200"></div>
-        <div class="p-6">
-          <h2 data-i18n="sunflowerBundle" class="text-2xl font-semibold text-gray-900">Sunflower Bundle</h2>
-          <p data-i18n="sunflowerBundleDesc" class="mt-2 text-gray-600">Bright and cheerful sunflowers to brighten any room.</p>
-          <p class="mt-4 text-2xl font-bold text-green-700">$28</p>
-          <button 
-            data-i18n="addToCart" 
-            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
-            data-id="sunflower-bundle"
-            data-name-key="sunflowerBundle"
-            data-price="28"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
-
-      <!-- Product Card 3 -->
-      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm overflow-hidden">
-        <div class="h-48 bg-gradient-to-br from-red-200 to-pink-200"></div>
-        <div class="p-6">
-          <h2 data-i18n="roseCollection" class="text-2xl font-semibold text-gray-900">Rose Collection</h2>
-          <p data-i18n="roseCollectionDesc" class="mt-2 text-gray-600">Classic roses in various colors, perfect for special moments.</p>
-          <p class="mt-4 text-2xl font-bold text-green-700">$45</p>
-          <button 
-            data-i18n="addToCart" 
-            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
-            data-id="rose-collection"
-            data-name-key="roseCollection"
-            data-price="45"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
-
-      <!-- Product Card 4 -->
-      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm overflow-hidden">
-        <div class="h-48 bg-gradient-to-br from-blue-200 to-indigo-200"></div>
-        <div class="p-6">
-          <h2 data-i18n="wildflowerMix" class="text-2xl font-semibold text-gray-900">Wildflower Mix</h2>
-          <p data-i18n="wildflowerMixDesc" class="mt-2 text-gray-600">A rustic blend of native wildflowers and grasses.</p>
-          <p class="mt-4 text-2xl font-bold text-green-700">$32</p>
-          <button 
-            data-i18n="addToCart" 
-            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
-            data-id="wildflower-mix"
-            data-name-key="wildflowerMix"
-            data-price="32"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
-
-      <!-- Product Card 5 -->
-      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm overflow-hidden">
-        <div class="h-48 bg-gradient-to-br from-purple-200 to-pink-200"></div>
-        <div class="p-6">
-          <h2 data-i18n="dahliaDelight" class="text-2xl font-semibold text-gray-900">Dahlia Delight</h2>
-          <p data-i18n="dahliaDelightDesc" class="mt-2 text-gray-600">Stunning dahlias in vibrant colors and intricate patterns.</p>
-          <p class="mt-4 text-2xl font-bold text-green-700">$40</p>
-          <button 
-            data-i18n="addToCart" 
-            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
-            data-id="dahlia-delight"
-            data-name-key="dahliaDelight"
-            data-price="40"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
-
-      <!-- Product Card 6 -->
-      <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm overflow-hidden">
-        <div class="h-48 bg-gradient-to-br from-green-200 to-teal-200"></div>
-        <div class="p-6">
-          <h2 data-i18n="gardenGreens" class="text-2xl font-semibold text-gray-900">Garden Greens</h2>
-          <p data-i18n="gardenGreensDesc" class="mt-2 text-gray-600">Lush foliage and greenery for a natural, elegant look.</p>
-          <p class="mt-4 text-2xl font-bold text-green-700">$25</p>
-          <button 
-            data-i18n="addToCart" 
-            class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
-            data-id="garden-greens"
-            data-name-key="gardenGreens"
-            data-price="25"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
+      {products.map((product) => (
+        <ProductCard product={product} />
+      ))}
     </div>
 
     <div class="mt-12 bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm p-8 text-center">
-      <h2 data-i18n="customOrders" class="text-2xl font-semibold text-gray-900 mb-3">Custom Orders</h2>
-      <p data-i18n="customOrdersDesc" class="text-gray-600 mb-6">Need something special? We create custom arrangements for weddings, events, and special occasions.</p>
+      <h2 data-i18n="customOrders" class="text-2xl font-semibold text-gray-900 mb-3">
+        {t('customOrders', currentLanguage)}
+      </h2>
+      <p data-i18n="customOrdersDesc" class="text-gray-600 mb-6">
+        {t('customOrdersDesc', currentLanguage)}
+      </p>
       <a href={createUrl('contact')} data-i18n="contactUs" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition">
-        Contact Us
+        {t('contactUs', currentLanguage)}
       </a>
     </div>
   </main>

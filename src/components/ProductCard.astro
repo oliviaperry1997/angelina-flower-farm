@@ -1,0 +1,33 @@
+---
+import { getCurrentLanguage, t } from '../utils/translations';
+import type { Product } from '../data/products';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const currentLanguage = getCurrentLanguage();
+---
+
+<div class="bg-white/80 backdrop-blur-sm rounded-xl border border-white/40 shadow-sm overflow-hidden">
+  <div class={`h-48 bg-gradient-to-br ${product.gradientColors}`}></div>
+  <div class="p-6">
+    <h2 data-i18n={product.nameKey} class="text-2xl font-semibold text-gray-900">
+      {t(product.nameKey as any, currentLanguage)}
+    </h2>
+    <p data-i18n={product.descriptionKey} class="mt-2 text-gray-600">
+      {t(product.descriptionKey as any, currentLanguage)}
+    </p>
+    <p class="mt-4 text-2xl font-bold text-green-700">${product.price}</p>
+    <button 
+      data-i18n="addToCart" 
+      class="add-to-cart-btn mt-4 w-full bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-700 transition"
+      data-id={product.id}
+      data-name-key={product.nameKey}
+      data-price={product.price.toString()}
+    >
+      {t('addToCart', currentLanguage)}
+    </button>
+  </div>
+</div>
