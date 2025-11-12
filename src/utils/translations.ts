@@ -94,6 +94,28 @@ export const translations = {
     subtotal: 'Subtotal',
     total: 'Total',
     checkout: 'Checkout',
+    
+    // Checkout
+    checkoutTitle: 'Checkout',
+    customerInfo: 'Customer Information',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    checkoutEmail: 'Email Address',
+    checkoutPhone: 'Phone Number',
+    shippingAddress: 'Shipping Address',
+    streetAddress: 'Street Address',
+    city: 'City',
+    state: 'State',
+    zipCode: 'ZIP Code',
+    orderSummary: 'Order Summary',
+    paymentMethod: 'Payment Method',
+    paymentNote: 'Payment arrangements will be confirmed by email after your order is placed.',
+    placeOrder: 'Place Order',
+    backToCart: 'Back to Cart',
+    required: 'Required',
+    invalidEmail: 'Please enter a valid email address',
+    orderSuccess: 'Order Placed Successfully!',
+    orderConfirmation: 'Thank you for your order. We\'ll contact you soon to arrange payment and delivery.',
   },
   pt: {
     // Navigation
@@ -189,6 +211,28 @@ export const translations = {
     subtotal: 'Subtotal',
     total: 'Total',
     checkout: 'Finalizar Compra',
+    
+    // Checkout
+    checkoutTitle: 'Finalizar Compra',
+    customerInfo: 'Informações do Cliente',
+    firstName: 'Nome',
+    lastName: 'Apelido',
+    checkoutEmail: 'Endereço de Email',
+    checkoutPhone: 'Número de Telefone',
+    shippingAddress: 'Endereço de Entrega',
+    streetAddress: 'Morada',
+    city: 'Cidade',
+    state: 'Estado',
+    zipCode: 'Código Postal',
+    orderSummary: 'Resumo do Pedido',
+    paymentMethod: 'Método de Pagamento',
+    paymentNote: 'Os detalhes de pagamento serão confirmados por email após o seu pedido ser colocado.',
+    placeOrder: 'Fazer Pedido',
+    backToCart: 'Voltar ao Carrinho',
+    required: 'Obrigatório',
+    invalidEmail: 'Por favor, insira um endereço de email válido',
+    orderSuccess: 'Pedido Realizado com Sucesso!',
+    orderConfirmation: 'Obrigado pelo seu pedido. Entraremos em contacto em breve para organizar o pagamento e a entrega.',
   }
 } as const;
 
